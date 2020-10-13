@@ -3,7 +3,7 @@
 # C files
 rm sources.mk
 
-for file in `ls -1 src/*.c`
+for file in `ls -1 src/utils/*.c`
 do
 	printf "SRCS+=%s\n" $file >> sources.mk
 done
