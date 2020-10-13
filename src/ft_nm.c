@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:02:40 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/13 12:33:02 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/13 12:59:02 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int load_commands_handler(void *file, int type)
         cmd_numbers = ((struct mach_header_64 *)file)->ncmds;
         lc = (struct load_command *)(file + sizeof(struct mach_header_64));
     }
-    else if (type == BIT32)
+    else
     {
         cmd_numbers = ((struct mach_header *)file)->ncmds;
         lc = (struct load_command *)(file + sizeof(struct mach_header));
@@ -126,7 +126,7 @@ int load_commands_handler(void *file, int type)
     {
         if (type == BIT64)
             segment_command_handler_64(lc);
-        else if( type == BIT32)
+        else
             segment_command_handler_32(lc);
         lc = (void *)lc +lc->cmdsize;
     }
