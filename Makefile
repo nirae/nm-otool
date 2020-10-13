@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/02 11:57:24 by ndubouil          #+#    #+#              #
-#    Updated: 2020/10/02 15:41:24 by ndubouil         ###   ########.fr        #
+#    Updated: 2020/10/13 13:04:15 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ $(NAME):	Makefile $(OBJ) $(MAIN) $(HFILES) $(LIBFT)
 
 %.o:		%.c $(HFILES)
 		@echo "Creating $@ ..."
-		@$(CC) $(CFLAGS) -I$(H) -I$(MACHOH) -I$(ILIBFT) -c $< -o $@
+		@$(CC) $(CFLAGS) -I$(H) -I$(MACHOH) -I$(ILIBFT) -L$(LIBFT) -lft -c $< -o $@
 
 clean:
 		@echo "Cleaning Objs ..."
