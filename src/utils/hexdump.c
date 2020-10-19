@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:19:58 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 18:22:56 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:27:07 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,8 @@ int hexdump (void *start, int len, uint64_t addr, int type)
                 hex_to_str((uint64_t)addr + i, str_addr, 9);
             ft_printf("%s\t", str_addr);
         }
-        else
-        {
-            ft_printf(" ");
-        }
         hex_to_str((uint64_t)c[i], str_addr, 3);
-        ft_printf("%s", str_addr);
+        ft_printf("%s ", str_addr);
         i++;
     }
     ft_printf("\n");
