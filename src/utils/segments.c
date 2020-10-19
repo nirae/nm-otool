@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 18:21:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:38:17 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int segment_command_handler_64(void *file, void *lc, size_t file_size)
         // ft_printf("SEGMENT %s\n", ((struct segment_command_64 *)(lc))->segname);
         section = lc + sizeof(struct segment_command_64);
     	section_numbers = ((struct segment_command_64 *)(lc))->nsects;
+        if (section_numbers < 1)
+            return (FALSE);
         // Loop on sections
         while (section_numbers)
         {
@@ -56,6 +58,8 @@ int segment_command_handler_32(void *file, void *lc, size_t file_size)
         // ft_printf("SEGMENT %s\n", ((struct segment_command_64 *)(lc))->segname);
         section = lc + sizeof(struct segment_command);
     	section_numbers = ((struct segment_command *)(lc))->nsects;
+        if (section_numbers < 1)
+            return (FALSE);
         // Loop on sections
         while (section_numbers)
         {

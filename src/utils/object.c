@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:31:00 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 16:17:26 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:32:37 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int object_handler(void *file, int type, size_t size)
     }
     while (cmd_numbers--)
     {
+        if (lc->cmdsize % 8)
+            return (FALSE);
         if (type & BIT64)
             ret = segment_command_handler_64(file, lc, size);
         else

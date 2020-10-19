@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:02:40 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/16 17:20:22 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:33:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int ft_otool(char *filename)
     void        *file;
     int         type;
     size_t      size;
+    int         ret;
 
     if ((file = get_file(filename, &size)) == NULL)
     {
@@ -26,10 +27,10 @@ int ft_otool(char *filename)
     if ((type = is_macho(file)) == FALSE)
         return (FALSE);
     ft_printf("%s:\n", filename);
-    handler(file, type, size);
+    ret = handler(file, type, size);
     // load_commands_handler(file, type, size);
     munmap(file, size);
-    return (TRUE);
+    return (ret);
 }
 
 int main(int ac, char **av)
