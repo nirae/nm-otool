@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:51:33 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 15:52:05 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 19:13:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int get_errors_64(void *file, void *lc)
     end = ((struct segment_command_64 *)(lc)) + header->sizeofcmds;
     if ((void *)lc + size > end)
     {
-        ft_printf("corrupted");
+        ft_printf("get_errors_64 corrupted\n");
         return (FALSE);
     }
     return (TRUE);
@@ -38,7 +38,7 @@ int get_errors_32(void *file, void *lc)
     end = ((struct segment_command *)(lc)) + header->sizeofcmds;
     if ((void *)lc + size > end)
     {
-        ft_printf("corrupted");
+        ft_printf("get_errors_32 corrupted\n");
         return (FALSE);
     }
     return (TRUE);
@@ -52,7 +52,7 @@ int get_overflow_64(void *file, void *lc, void *addr, size_t file_size)
     end = ((struct segment_command_64 *)(lc)) + header->sizeofcmds;
     if ((void *)addr > (file + file_size) || addr > (void *)end || addr < file)
     {
-        ft_printf("corrupted");
+        ft_printf("get_overflow_64 corrupted\n");
         return (FALSE);
     }
     return (TRUE);
@@ -66,7 +66,7 @@ int get_overflow_32(void *file, void *lc, void *addr, size_t file_size)
     end = ((struct segment_command *)(lc)) + header->sizeofcmds;
     if ((void *)addr > (file + file_size) || addr > (void *)end || addr < file)
     {
-        ft_printf("corrupted");
+        ft_printf("get_overflow_32 corrupted\n");
         return (FALSE);
     }
     return (TRUE);
