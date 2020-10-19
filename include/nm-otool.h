@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/13 20:38:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 15:58:39 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "libft.h"
 #include "libftprintf.h"
 #include "mach-o/loader.h"
+#include "mach-o/fat.h"
 
 #include <stdio.h>
 
@@ -26,24 +27,51 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#define BIT64 3
-#define BIT32 4
+#define NOT_MACHO 1
+
+#define BIT64   1
+#define BIT32   2
+#define FAT     0x10
+#define L_ENDIAN 0x100
+
+
+
+/*
+** errors.c
+*/
+int get_errors_64(void *file, void *lc);
+int get_errors_32(void *file, void *lc);
+int get_overflow_64(void *file, void *lc, void *addr, size_t file_size);
+int get_overflow_32(void *file, void *lc, void *addr, size_t file_size);
+
 
 /*
 ** hexdump.c
 */
-int hexdump (void *start, int len, uint64_t addr);
+int hexdump(void *start, int len, uint64_t addr);
 
 /*
 ** segments.c
 */
-int segment_command_handler_32(void *file, void *lc);
-void segment_command_handler_64(void *file, void *lc);
+int segment_command_handler_32(void *file, void *lc, size_t file_size);
+int segment_command_handler_64(void *file, void *lc, size_t file_size);
 
 /*
-** load_commands.c
+** handler.c
 */
-int load_commands_handler(void *file, int type);
+int     handler(void *file, int type, size_t size);
+
+
+/*
+** object.c
+*/
+int object_handler(void *file, int type, size_t size);
+
+/*
+** fat.c
+*/
+int fat_handler(void *file, int type);
+
 
 /*
 ** is_macho.c
@@ -53,6 +81,12 @@ int is_macho(void *file);
 /*
 ** get_file.c
 */
-void    *get_file(char *filename);
+void    *get_file(char *filename, size_t *size);
+
+/*
+** endianess.c
+*/
+uint32_t	uint32_swap(uint32_t nb);
+
 
 # endif

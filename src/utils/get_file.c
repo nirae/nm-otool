@@ -6,13 +6,13 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:37:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/13 20:38:06 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/14 14:04:09 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm-otool.h"
 
-void    *get_file(char *filename)
+void    *get_file(char *filename, size_t *size)
 {
     int fd;
     struct stat     file_stat;
@@ -40,5 +40,6 @@ void    *get_file(char *filename)
         ft_fd_printf(2, "mmap failed");
         return (NULL);
     }
+    *size = file_stat.st_size;
     return (file);
 }
