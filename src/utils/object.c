@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:31:00 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/16 17:36:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 16:17:26 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int object_handler(void *file, int type, size_t size)
     {
         cmd_numbers = ((struct mach_header *)file)->ncmds;
         lc = (struct load_command *)(file + sizeof(struct mach_header));
+    }
+    else
+    {
+        return (FALSE);
     }
     while (cmd_numbers--)
     {
