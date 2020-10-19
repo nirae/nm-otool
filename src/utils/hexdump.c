@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:19:58 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/13 20:25:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 16:25:58 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,18 @@ int hexdump (void *start, int len, uint64_t addr)
             // ft_printf ("000000%lx ", (uint64_t)addr + i);
             // str = ft_ulli_itoa_base((uint64_t)addr + i, "0123456789abcdef");
             hex_to_str((uint64_t)addr + i, str_addr, sizeof(str_addr));
-            ft_printf("000000%s      ", str_addr);
+            ft_printf("000000%s\t", str_addr);
         }
+        else
+        {
+            ft_printf(" ");
+        }
+        
         // Now the hex code for the specific character.
 
         // ft_printf(" %s", ft_ulli_itoa_base((uint64_t)c[i], "0123456789abcdef"));
         hex_to_str((uint64_t)c[i], tab, sizeof(tab));
-        ft_printf(" %s", tab);
+        ft_printf("%s", tab);
         // ft_printf(" %02llx", c[i]);
         // And buffer a printable ASCII character for later.
         // if (!ft_isprint(c[i]))
