@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 15:58:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:21:36 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int get_overflow_32(void *file, void *lc, void *addr, size_t file_size);
 /*
 ** hexdump.c
 */
-int hexdump(void *start, int len, uint64_t addr);
+int hexdump(void *start, int len, uint64_t addr, int type);
 
 /*
 ** segments.c

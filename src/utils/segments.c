@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 15:55:07 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:21:19 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int segment_command_handler_64(void *file, void *lc, size_t file_size)
             if (ft_strcmp(sec->sectname, SECT_TEXT) == 0)
             {
                 ft_printf("Contents of (%s,%s) section\n", sec->segname, sec->sectname);
-                hexdump(file + sec->offset, sec->size, sec->addr);
+                hexdump(file + sec->offset, sec->size, sec->addr, BIT64);
             }
 
 	        section += sizeof(struct section_64);
@@ -66,7 +66,7 @@ int segment_command_handler_32(void *file, void *lc, size_t file_size)
             if (ft_strcmp(sec->sectname, SECT_TEXT) == 0)
             {
                 ft_printf("Contents of (%s,%s) section\n", sec->segname, sec->sectname);
-                hexdump(file + sec->offset, sec->size, sec->addr);
+                hexdump(file + sec->offset, sec->size, sec->addr, BIT32);
             }
 
 	        section += sizeof(struct section);
