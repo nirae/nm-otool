@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:02:40 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 18:33:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 21:32:47 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int ft_otool(char *filename)
     if ((file = get_file(filename, &size)) == NULL)
     {
         ft_fd_printf(2, "file == NULL");
-        return (FALSE);
+        return (TRUE);
     }
     if ((type = is_macho(file)) == FALSE)
         return (FALSE);

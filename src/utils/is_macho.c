@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:36:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/16 17:18:33 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 21:38:28 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int is_macho(void *file)
         magic != MH_MAGIC_64 && magic != MH_CIGAM_64 &&
         magic != FAT_MAGIC && magic != FAT_CIGAM)
     {
-        ft_fd_printf(2, "Pas un macho");
+        ft_printf("Pas un macho");
         return (FALSE);
     }
     return (get_macho_type(magic));
