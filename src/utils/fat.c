@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:37:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 22:25:04 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 22:44:32 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,10 +163,7 @@ int fat_handler(void *file, int type, size_t size)
         {
             ft_printf("filename (architecture %s) :\n", get_architecture(addr_32(((struct fat_arch *)(arch))->cputype, type), addr_32(((struct fat_arch *)(arch))->cpusubtype, type)));
         }
-        if (manage_fat(file, size, type, arch) == FALSE)
-        {
-            return (FALSE);
-        }
+        manage_fat(file, size, type, arch);
         if (x86)
         {
             break;
