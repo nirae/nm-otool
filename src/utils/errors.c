@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:51:33 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 15:11:03 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 18:25:27 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,17 @@ int get_errors_64(void *file, void *lc)
     return (TRUE);
 }
 
-int get_errors_32(void *file, void *lc)
+int get_errors_32(void *file, void *seg, int type)
 {
     uint64_t size;
     void *end;
-
-    size = ((struct segment_command *)(lc))->cmdsize;
+    struct segment_command *sc;
+    
+    sc = ((struct segment_command *)(seg));
+    size = addr_32(sc->cmdsize, type);
     struct mach_header *header = ((struct mach_header *)(file));
-    end = ((struct segment_command *)(lc)) + header->sizeofcmds;
-    if ((void *)lc + size > end)
+    end = sc + addr_32(header->sizeofcmds, type);
+    if ((void *)sc + size > end)
     {
         ft_printf("get_errors_32 corrupted\n");
         return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 15:11:08 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 18:15:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 ** errors.c
 */
 int get_errors_64(void *file, void *lc);
-int get_errors_32(void *file, void *lc);
+int get_errors_32(void *file, void *lc, int type);
 int get_overflow_64(void *file, void *addr, size_t file_size);
 int get_overflow_32(void *file, void *addr, size_t file_size);
 
@@ -53,7 +53,7 @@ int hexdump(void *start, int len, uint64_t addr, int type);
 /*
 ** segments.c
 */
-int segment_command_handler_32(void *file, void *lc, size_t file_size);
+int segment_command_handler_32(void *file, void *lc, int type, size_t file_size);
 int segment_command_handler_64(void *file, void *lc, size_t file_size);
 
 /*
@@ -87,6 +87,8 @@ void    *get_file(char *filename, size_t *size);
 ** endianess.c
 */
 uint32_t	uint32_swap(uint32_t nb);
+uint32_t    addr_32(uint32_t nb, int type);
+// struct segment_command *swap_segment_command(struct segment_command *base);
 
 
 # endif
