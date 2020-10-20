@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 18:15:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 19:32:35 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,16 @@
 #define FAT     0x10
 #define L_ENDIAN 0x100
 
-
+/*
+ * from https://github.com/opensource-apple/cctools/blob/master/include/stuff/arch.h
+ * The structure describing an architecture flag with the string of the flag
+ * name, and the cputype and cpusubtype.
+ */
+typedef struct	s_arch_flag {
+	char			*name;
+	cpu_type_t		cputype;
+	cpu_subtype_t	cpusubtype;
+}				t_arch_flag;
 
 /*
 ** errors.c

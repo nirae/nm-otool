@@ -1,4 +1,5 @@
 HFILES+=include/nm-otool.h
+HFILES+=macho-headers/arch.h
 HFILES+=macho-headers/mac-ctype.h
 HFILES+=macho-headers/mach/machine.h
 HFILES+=macho-headers/mach-o/fat.h
