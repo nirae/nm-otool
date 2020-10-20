@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/02 11:57:24 by ndubouil          #+#    #+#              #
-#    Updated: 2020/10/13 18:47:40 by ndubouil         ###   ########.fr        #
+#    Updated: 2020/10/20 14:57:37 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,13 +64,13 @@ ft_nm:	Makefile $(NM_OBJ) $(HFILES) $(LIBFT)
 
 clean:
 		@echo "Cleaning Objs ..."
-		@$(RM) -f $(OBJ)
+		@$(RM) -f $(OTOOL_OBJ) $(NM_OBJ)
 		@echo "Cleaning Libft Objs ..."
 		@make clean -C $(LIBFT)
 
 fclean:		clean
-		@echo "Cleaning $(NAME) exec"
-		@$(RM) -f $(NAME)
+		@echo "Cleaning ft_nm, ft_otool exec"
+		@$(RM) -f ft_nm ft_otool
 		@echo "Cleaning libft exec"
 		@make fclean -C $(LIBFT)
 

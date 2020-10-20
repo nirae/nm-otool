@@ -1,5 +1,6 @@
 .vscode
 peda*
 ft_nm
+ft_otool
 *.o
 *.a

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:37:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/14 14:04:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:53:23 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void    *get_file(char *filename, size_t *size)
         return (NULL);
     }
     file = mmap(NULL, file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    close(fd);
     if (file == MAP_FAILED)
     {
         ft_fd_printf(2, "mmap failed");
