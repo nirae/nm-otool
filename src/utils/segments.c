@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 15:00:06 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:52:30 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,19 @@ int segment_command_handler_32(void *file, void *lc, size_t file_size)
 
     if (get_errors_32(file, lc) == FALSE)
         return (FALSE);
-    if (((struct segment_command *)(lc))->cmd == LC_SEGMENT)
+    struct segment_command *seg = ((struct segment_command *)(lc));
+    if (seg->cmd == LC_SEGMENT)
     {
-        // ft_printf("SEGMENT %s\n", ((struct segment_command_64 *)(lc))->segname);
+        if (get_overflow_32(file, file + seg->fileoff + seg->filesize, file_size) == FALSE)
+            return (FALSE);
         section = lc + sizeof(struct segment_command);
     	section_numbers = ((struct segment_command *)(lc))->nsects;
-        if (section_numbers < 1)
-            return (FALSE);
         // Loop on sections
         while (section_numbers)
         {
             struct section *sec = ((struct section *)(section));
 	        // ft_printf("SECTION %s\n", sec->sectname);
-            if (get_overflow_32(file, lc, file + sec->offset + sec->size, file_size) == FALSE)
+            if (get_overflow_32(file, file + sec->offset + sec->size, file_size) == FALSE)
                 return (FALSE);
             if (ft_strcmp(sec->sectname, SECT_TEXT) == 0)
             {
