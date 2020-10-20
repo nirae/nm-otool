@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 19:32:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 21:58:57 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int object_handler(void *file, int type, size_t size);
 /*
 ** fat.c
 */
-int fat_handler(void *file, int type);
+int fat_handler(void *file, int type, size_t size);
 
 
 /*

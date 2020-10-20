@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:37:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 19:45:00 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 22:25:04 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,13 @@ static char		*get_architecture(cpu_type_t cputype, cpu_subtype_t cpusubtype)
 	return (NULL);
 }
 
-static int manage_fat(void *file, int t, void *arch)
+static int manage_fat(void *file, size_t size, int t, void *arch)
 {
     int         type;
 
     struct fat_arch *a = ((struct fat_arch *)(arch));
+    if (get_overflow_32(file, file + addr_32(a->offset, t), size) == FALSE)
+        return (FALSE);
     if ((type = is_macho(file + addr_32(a->offset, t))) == FALSE)
         return (FALSE);
     object_handler(file + addr_32(a->offset, t), type, addr_32(a->size, t));
@@ -118,7 +120,7 @@ static int is_our_cpu(int type, void *arch)
 	return (FALSE);
 }
 
-int fat_handler(void *file, int type)
+int fat_handler(void *file, int type, size_t size)
 {
 	struct fat_arch		*arch;
 	uint32_t	        numbers_arch;
@@ -138,6 +140,8 @@ int fat_handler(void *file, int type)
     i = 0;
     while (i < numbers_arch)
 	{
+        if (get_overflow_32(file, file + addr_32(((struct fat_arch *)(arch))->offset, type), size) == FALSE)
+            return (FALSE);
         if (is_our_cpu(type, arch))
         {
             x86 = TRUE;
@@ -159,7 +163,7 @@ int fat_handler(void *file, int type)
         {
             ft_printf("filename (architecture %s) :\n", get_architecture(addr_32(((struct fat_arch *)(arch))->cputype, type), addr_32(((struct fat_arch *)(arch))->cpusubtype, type)));
         }
-        if (manage_fat(file, type, arch) == FALSE)
+        if (manage_fat(file, size, type, arch) == FALSE)
         {
             return (FALSE);
         }
