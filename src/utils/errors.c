@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:51:33 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 14:51:15 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:59:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ int get_errors_32(void *file, void *lc)
     return (TRUE);
 }
 
-int get_overflow_64(void *file, void *lc, void *addr, size_t file_size)
+int get_overflow_64(void *file, void *addr, size_t file_size)
 {
-    // void *end;
-    lc = lc;
-    // struct mach_header_64 *header = ((struct mach_header_64 *)(file));
-    // end = ((struct segment_command_64 *)(lc)) + header->sizeofcmds;
     if ((void *)addr > (file + file_size) || addr < file)
     {
         ft_printf("get_overflow_64 corrupted\n");

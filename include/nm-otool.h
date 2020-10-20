@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/19 18:21:36 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:59:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 */
 int get_errors_64(void *file, void *lc);
 int get_errors_32(void *file, void *lc);
-int get_overflow_64(void *file, void *lc, void *addr, size_t file_size);
+int get_overflow_64(void *file, void *addr, size_t file_size);
 int get_overflow_32(void *file, void *lc, void *addr, size_t file_size);
 
 
