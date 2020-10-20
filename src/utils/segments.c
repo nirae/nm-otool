@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 18:26:16 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/20 21:20:45 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ int segment_command_handler_64(void *file, void *lc, size_t file_size)
         {
             struct section_64 *sec = ((struct section_64 *)(section));
 	        // ft_printf("SECTION %s\n", sec->sectname);
-            if (get_overflow_64(file, file + sec->offset + sec->size, file_size) == FALSE)
-                return (FALSE);
             if (ft_strcmp(sec->sectname, SECT_TEXT) == 0)
             {
+                if (get_overflow_64(file, file + sec->offset + sec->size, file_size) == FALSE)
+                    return (FALSE);
                 ft_printf("Contents of (%s,%s) section\n", sec->segname, sec->sectname);
                 hexdump(file + sec->offset, sec->size, sec->addr, BIT64);
             }
-
 	        section += sizeof(struct section_64);
             section_numbers--;
 	    }
@@ -67,10 +66,10 @@ int segment_command_handler_32(void *file, void *lc, int type, size_t file_size)
         {
             struct section *sec = ((struct section *)(section));
 	        // ft_printf("SECTION %s\n", sec->sectname);
-            if (get_overflow_32(file, file + addr_32(sec->offset, type) + addr_32(sec->size, type), file_size) == FALSE)
-                return (FALSE);
             if (ft_strcmp(sec->sectname, SECT_TEXT) == 0)
             {
+                if (get_overflow_32(file, file + addr_32(sec->offset, type) + addr_32(sec->size, type), file_size) == FALSE)
+                return (FALSE);
                 ft_printf("Contents of (%s,%s) section\n", sec->segname, sec->sectname);
                 hexdump(file + addr_32(sec->offset, type), addr_32(sec->size, type), addr_32(sec->addr, type), type);
             }
