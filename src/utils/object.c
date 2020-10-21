@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:31:00 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 22:37:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:43:01 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,20 @@ int object_handler(void *file, int type, size_t size)
     {
         if ((type & BIT64) && (lc->cmdsize % 8))
             return (FALSE);
-        if (type & BIT64)
-            ret = segment_command_handler_64(file, lc, size);
+        if (type & NM)
+        {
+            if (type & BIT64)
+                ret = segment_command_handler_64_nm(file, lc, size);
+            else
+                ret = segment_command_handler_32_nm(file, lc, type, size);
+        }
         else
-            ret = segment_command_handler_32(file, lc, type, size);
+        {
+            if (type & BIT64)
+                ret = segment_command_handler_64(file, lc, size);
+            else
+                ret = segment_command_handler_32(file, lc, type, size);
+        }
         if (ret == FALSE)
             return (FALSE);
         if (type & BIT32)

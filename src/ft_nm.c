@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:02:40 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/13 20:38:40 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:40:32 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 int ft_nm(char *filename)
 {
-    void                    *file;
-    int type;
+    void        *file;
+    int         type;
+    size_t      size;
+    int         ret;
 
-    if ((file = get_file(filename)) == NULL)
+    if ((file = get_file(filename, &size)) == NULL)
     {
         ft_fd_printf(2, "file == NULL");
-        return (FALSE);
+        return (TRUE);
     }
-    if ((type = is_macho(file)) == FALSE)
+    if ((type = is_macho(file, NM)) == FALSE)
         return (FALSE);
-
-    load_commands_handler(file, type);
-
-    return (TRUE);
+    ret = handler(file, type, size);
+    // load_commands_handler(file, type, size);
+    munmap(file, size);
+    return (ret);
 }
 
 int main(int ac, char **av)

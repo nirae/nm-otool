@@ -6,13 +6,13 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:36:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 21:38:28 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:51:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm-otool.h"
 
-int get_macho_type(uint32_t magic)
+int get_macho_type(uint32_t magic, int bin)
 {
     int             type;
 
@@ -36,32 +36,12 @@ int get_macho_type(uint32_t magic)
             type += L_ENDIAN;
         
     }
+    if (bin == NM)
+        type += NM;
     return (type);
 }
 
-// int get_endianess(void *file, int type)
-// {
-//     uint32_t magic;
-
-//     magic = *(uint32_t *)(file);
-//     if (type == BIT64)
-//     {
-
-//     }
-//     else if (type == BIT32)
-//     {
-
-//     }
-//     else 
-//     if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
-//         return (BIT64);
-//     else if (magic == MH_MAGIC || magic == MH_CIGAM)
-//         return (BIT32);
-//     else if (magic == FAT_MAGIC || magic == FAT_CIGAM)
-//         return (FAT);
-// }
-
-int is_macho(void *file)
+int is_macho(void *file, int bin)
 {
     uint32_t magic;
 
@@ -73,5 +53,5 @@ int is_macho(void *file)
         ft_printf("Pas un macho");
         return (FALSE);
     }
-    return (get_macho_type(magic));
+    return (get_macho_type(magic, bin));
 }

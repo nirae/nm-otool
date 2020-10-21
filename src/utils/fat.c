@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:37:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 22:44:32 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:54:20 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int manage_fat(void *file, size_t size, int t, void *arch)
     struct fat_arch *a = ((struct fat_arch *)(arch));
     if (get_overflow_32(file, file + addr_32(a->offset, t), size) == FALSE)
         return (FALSE);
-    if ((type = is_macho(file + addr_32(a->offset, t))) == FALSE)
+    if ((type = is_macho(file + addr_32(a->offset, t), t & NM)) == FALSE)
         return (FALSE);
     object_handler(file + addr_32(a->offset, t), type, addr_32(a->size, t));
 	return (TRUE);
