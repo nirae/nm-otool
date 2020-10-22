@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/21 19:17:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/22 15:57:38 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ int hexdump(void *start, int len, uint64_t addr, int type);
 */
 int segment_command_handler_32(void *file, void *lc, int type, size_t file_size);
 int segment_command_handler_32_nm(void *file, void *lc, int type, size_t file_size);
+// int get_sections_32_nm(void *file, void *lc, int type, size_t file_size, t_list **sections);
 int segment_command_handler_64(void *file, void *lc, size_t file_size);
 int segment_command_handler_64_nm(void *file, void *lc, size_t file_size);
+// int get_sections_64_nm(void *file, void *lc, size_t file_size, t_list **sections);
 
 /*
 ** handler.c
