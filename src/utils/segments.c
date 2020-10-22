@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/22 19:04:40 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/22 19:05:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int segment_command_handler_64_nm(void *file, void *lc, size_t file_size)
     char            tmp[16];
 
     i = 0;
-    file_size = file_size;
     struct segment_command_64 *seg = ((struct segment_command_64 *)(lc));
     // ft_printf("debut: %s\n", seg->segname);
     if (get_errors_64(file, lc) == FALSE)
