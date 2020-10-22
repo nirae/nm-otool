@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/22 19:05:42 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/22 19:08:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int segment_command_handler_64_nm(void *file, void *lc, size_t file_size)
     uint32_t        sym_numbers;
     uint32_t        i;
 	// void            *section;
-    char            tmp[16];
+    char            tmp[17];
 
     i = 0;
     struct segment_command_64 *seg = ((struct segment_command_64 *)(lc));
