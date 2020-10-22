@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/22 23:31:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/23 00:07:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,8 @@ int segment_command_handler_64_nm(void *file, void *lc, size_t file_size)
             if (!get_overflow_64(file, sym_data, file_size))
                 return (FALSE);
             char *name = strtab + sym_data->n_un.n_strx;
+            if (!get_overflow_64(file, name, file_size))
+                return (FALSE);
             if (N_STAB & sym_data->n_type)
             {
                 symtab += sizeof(struct nlist_64);
@@ -195,7 +197,8 @@ int segment_command_handler_64_nm(void *file, void *lc, size_t file_size)
             else
                 ft_memset(tmp, ' ', sizeof(tmp) - 1);
             // get_section_64(file, sym_data->n_sect, file_size);
-            ft_printf("%s %c %s\n", tmp, get_symbol_letter_64(sym_data, file, file_size), name);
+            if (name[0])
+                ft_printf("%s %c %s\n", tmp, get_symbol_letter_64(sym_data, file, file_size), name);
             symtab += sizeof(struct nlist_64);
             sym_numbers--;
             i++;
