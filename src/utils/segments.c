@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 18:21:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/22 22:19:06 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/22 23:31:09 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ int get_section_32(void *file, uint8_t nb, size_t file_size, int type)
     uint8_t i = 1;
 
     lc = file + sizeof(struct mach_header);
-    uint32_t cmd_numbers = ((struct mach_header *)file)->ncmds;
+    uint32_t cmd_numbers = addr_32(((struct mach_header *)file)->ncmds, type);
 
     while (cmd_numbers--)
     {
         struct segment_command *seg = (struct segment_command *)lc;
-        if (seg->cmd == LC_SEGMENT)
+        if (addr_32(seg->cmd, type) == LC_SEGMENT)
         {
             if (get_overflow_32(file, file + addr_32(seg->fileoff, type) + addr_32(seg->filesize, type), file_size) == FALSE)
                 return (FALSE);
             section = lc + sizeof(struct segment_command);
-            section_numbers = ((struct segment_command *)(lc))->nsects;
+            section_numbers = addr_32(((struct segment_command *)(lc))->nsects, type);
             // Loop on sections
             while (section_numbers)
             {
@@ -216,19 +216,19 @@ int segment_command_handler_32_nm(void *file, void *lc, int type, size_t file_si
     // ft_printf("debut: %s\n", seg->segname);
     if (get_errors_32(file, lc, type) == FALSE)
         return (FALSE);
-    if (seg->cmd == LC_SYMTAB)
+    if (addr_32(seg->cmd, type) == LC_SYMTAB)
     {
         struct symtab_command *sym = ((struct symtab_command *)(lc));
-        void *strtab = file + sym->stroff;
-        void *symtab = file + sym->symoff;
-        sym_numbers = sym->nsyms;
+        void *strtab = file + addr_32(sym->stroff, type);
+        void *symtab = file + addr_32(sym->symoff, type);
+        sym_numbers = addr_32(sym->nsyms, type);
         while (sym_numbers)
         {
             ft_bzero(tmp, sizeof(tmp));
             struct nlist *sym_data = ((struct nlist *)(symtab));
             if (!get_overflow_32(file, sym_data, file_size))
                 return (FALSE);
-            char *name = strtab + sym_data->n_un.n_strx;
+            char *name = strtab + addr_32(sym_data->n_un.n_strx, type);
             if (N_STAB & sym_data->n_type)
             {
                 symtab += sizeof(struct nlist);
@@ -237,7 +237,7 @@ int segment_command_handler_32_nm(void *file, void *lc, int type, size_t file_si
                 continue;
             }
             if (sym_data->n_value)
-                hex_to_str(sym_data->n_value, tmp, sizeof(tmp));
+                hex_to_str(addr_32(sym_data->n_value, type), tmp, sizeof(tmp));
             else
                 ft_memset(tmp, ' ', sizeof(tmp) - 1);
             // get_section_64(file, sym_data->n_sect, file_size);
