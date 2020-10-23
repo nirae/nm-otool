@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 15:21:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/22 15:57:38 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/23 18:01:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#define NOT_MACHO 1
+#define FILENAME_MAX_SIZE 255
+
+#define OPEN_FAILED 100
 
 #define BIT64   1
 #define BIT32   2
@@ -93,12 +95,13 @@ int fat_handler(void *file, int type, size_t size);
 /*
 ** is_macho.c
 */
-int is_macho(void *file, int bin);
+int get_macho_type(void *file, int bin);
 
 /*
 ** get_file.c
 */
-void    *get_file(char *filename, size_t *size);
+void    *get_file(char *filename, size_t *size, int *err);
+int     valid_macho(void *file);
 
 /*
 ** endianess.c

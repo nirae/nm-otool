@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 17:19:28 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/20 21:58:43 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/23 17:29:05 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,5 @@ int     handler(void *file, int type, size_t size)
 {
     if (type & FAT)
         return (fat_handler(file, type, size));
-    else if (type & BIT64 || type & BIT32)
-        return (object_handler(file, type, size));
-    else
-        return (FALSE);
-    return (TRUE);
+    return (object_handler(file, type, size));
 }

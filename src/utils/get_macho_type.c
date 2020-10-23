@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_macho.c                                         :+:      :+:    :+:   */
+/*   get_macho_type.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 20:36:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/21 14:51:24 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/23 17:27:28 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm-otool.h"
 
-int get_macho_type(uint32_t magic, int bin)
+int get_macho_type(void *file, int bin)
 {
     int             type;
+    uint32_t        magic;
 
     type = 0;
+    magic = *(uint32_t *)(file);
+    if (!valid_macho(file))
+        return (FALSE);
     if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
     {
         type += BIT64;
@@ -39,19 +43,4 @@ int get_macho_type(uint32_t magic, int bin)
     if (bin == NM)
         type += NM;
     return (type);
-}
-
-int is_macho(void *file, int bin)
-{
-    uint32_t magic;
-
-    magic = *(uint32_t *)(file);
-    if (magic != MH_MAGIC && magic != MH_CIGAM &&
-        magic != MH_MAGIC_64 && magic != MH_CIGAM_64 &&
-        magic != FAT_MAGIC && magic != FAT_CIGAM)
-    {
-        ft_printf("Pas un macho");
-        return (FALSE);
-    }
-    return (get_macho_type(magic, bin));
 }

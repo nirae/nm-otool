@@ -6,40 +6,77 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:02:40 by ndubouil          #+#    #+#             */
-/*   Updated: 2020/10/21 14:40:32 by ndubouil         ###   ########.fr       */
+/*   Updated: 2020/10/23 18:02:01 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm-otool.h"
 
-int ft_nm(char *filename)
+char    *ft_nm(char *filename)
 {
     void        *file;
     int         type;
     size_t      size;
-    int         ret;
+    int         err;
+    // int         ret;
 
-    if ((file = get_file(filename, &size)) == NULL)
+    if (!(file = get_file(filename, &size, &err)))
     {
-        ft_fd_printf(2, "file == NULL");
-        return (TRUE);
+        if (err == OPEN_FAILED)
+            return ("No such file or directory");
+        return ("The file was not recognized as a valid object file");
     }
-    if ((type = is_macho(file, NM)) == FALSE)
+    if ((type = get_macho_type(file, NM)) == FALSE)
         return (FALSE);
-    ret = handler(file, type, size);
-    // load_commands_handler(file, type, size);
+    // ret = handler(file, type, size);
+    handler(file, type, size);
     munmap(file, size);
-    return (ret);
+    // return (ret);
+    return (NULL);
 }
 
-int main(int ac, char **av)
+int     entry(char **tab)
 {
-    if (ac != 2)
+    int     i;
+    char    *err;
+
+    i = 0;
+    while (tab[i])
     {
-        ft_putendl("usage: ft_nm <file>");
-        return (EXIT_FAILURE);
+        if (ft_strlen(tab[i]) > FILENAME_MAX_SIZE)
+        {
+            ft_fd_printf(2, "ft_nm: error: %s: File name too long\n", tab[i]);
+            continue;
+        }
+        if ((err = ft_nm(tab[i])))
+        {
+            ft_fd_printf(2, "ft_nm: error: %s: %s\n", tab[i], err);
+            return (FALSE);
+        }
+        i++;
     }
-    if (ft_nm(av[1]) == FALSE)
-        return (EXIT_FAILURE);
+    return (TRUE);
+}
+
+int     main(int ac, char **av)
+{
+    char    filename[FILENAME_MAX_SIZE];
+    // char    **tab;
+
+    ft_bzero(filename, sizeof(filename));
+    // tab = av;
+    if (ac < 2)
+    {
+        ft_strcpy(filename, "a.out");
+        av[0] = filename;
+        av[1] = 0;
+        if (!entry(av))
+            return (EXIT_FAILURE);
+    }
+    else
+    {
+        if (!entry(&av[1]))
+            return (EXIT_FAILURE);
+    }
     return (EXIT_SUCCESS);
 }
